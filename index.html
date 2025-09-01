@@ -4,21 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sravya | Portfolio</title>
-  <style>
-    /* Google Fonts */
-    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Global Styling */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: "Poppins", sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg-dark: #1e1e2f;
+      --bg-light: #ffffff;
+      --text-dark: #1e1e2f;
+      --text-light: #ffffff;
+      --primary: #ff6bcb;
     }
 
     body {
-      background: linear-gradient(135deg, #1e1e2f, #23243a);
-      color: white;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      transition: all 0.5s ease;
       overflow-x: hidden;
+    }
+
+    body.light-mode {
+      background: var(--bg-light);
+      color: var(--text-dark);
     }
 
     header {
@@ -37,13 +57,14 @@
     }
 
     header h1 {
-      font-size: 1.5rem;
-      color: #ff6bcb;
+      font-size: 1.6rem;
+      color: var(--primary);
       letter-spacing: 2px;
+      cursor: pointer;
     }
 
     nav a {
-      color: white;
+      color: inherit;
       margin-left: 20px;
       text-decoration: none;
       font-weight: 500;
@@ -51,18 +72,40 @@
     }
 
     nav a:hover {
-      color: #ff6bcb;
+      color: var(--primary);
     }
 
+    #themeToggle {
+      margin-left: 20px;
+      cursor: pointer;
+      font-size: 1.3rem;
+      color: var(--primary);
+      transition: transform 0.3s;
+    }
+
+    #themeToggle:hover {
+      transform: scale(1.2);
+    }
+
+    /* Hero Section */
     .hero {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       text-align: center;
+      background: url('https://source.unsplash.com/1600x900/?technology,code') no-repeat center center/cover;
       position: relative;
-      padding: 0 20px;
+      z-index: 1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
     }
 
     .hero img {
@@ -80,51 +123,18 @@
 
     .typing-text {
       font-size: 1.5rem;
-      color: #ff6bcb;
+      color: var(--primary);
       font-weight: bold;
-      border-right: 3px solid #ff6bcb;
+      border-right: 3px solid var(--primary);
       white-space: nowrap;
       overflow: hidden;
-      animation: typing 4s steps(40) infinite alternate;
+      animation: typing 5s steps(40) infinite alternate;
     }
 
     @keyframes typing {
-      0% {
-        width: 0;
-      }
-      50% {
-        width: 100%;
-      }
-      100% {
-        width: 0;
-      }
-    }
-
-    .bubbles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .bubbles span {
-      position: absolute;
-      bottom: -150px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 50%;
-      animation: rise 20s infinite ease-in;
-    }
-
-    @keyframes rise {
-      0% {
-        transform: translateY(0) scale(1);
-      }
-      100% {
-        transform: translateY(-1200px) scale(0.3);
-      }
+      0% { width: 0; }
+      50% { width: 100%; }
+      100% { width: 0; }
     }
 
     /* Sections */
@@ -135,12 +145,12 @@
 
     section h2 {
       font-size: 2rem;
-      color: #ff6bcb;
+      color: var(--primary);
       margin-bottom: 30px;
     }
 
-    .skills,
-    .projects {
+    /* Cards */
+    .cards {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -150,15 +160,52 @@
     .card {
       background: rgba(255, 255, 255, 0.05);
       padding: 20px;
-      width: 250px;
+      width: 280px;
       border-radius: 15px;
       backdrop-filter: blur(10px);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
       transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
     }
 
     .card:hover {
       transform: translateY(-10px);
       box-shadow: 0 0 20px rgba(255, 107, 203, 0.6);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* Contact */
+    #contact a {
+      display: inline-block;
+      margin: 10px;
+      color: var(--primary);
+      font-size: 1.3rem;
+      transition: transform 0.3s;
+    }
+
+    #contact a:hover {
+      transform: scale(1.2);
+    }
+
+    /* Edit Mode */
+    #editBtn {
+      background: var(--primary);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      margin-left: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #editBtn:hover {
+      background: #ff3fa6;
     }
 
     footer {
@@ -171,7 +218,7 @@
     }
 
     footer a {
-      color: #ff6bcb;
+      color: var(--primary);
       margin: 0 10px;
       text-decoration: none;
       transition: color 0.3s;
@@ -181,20 +228,29 @@
       color: #fff;
     }
 
+    /* Scroll Animations */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+
+    [data-animate].active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       header {
         padding: 15px 20px;
       }
-
       .hero h2 {
         font-size: 2rem;
       }
-
       .typing-text {
         font-size: 1.2rem;
       }
-
       .card {
         width: 100%;
       }
@@ -204,42 +260,36 @@
 <body>
   <!-- Header -->
   <header>
-    <h1>Sravya</h1>
+    <h1 id="userName">Sravya</h1>
     <nav>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
+      <i id="themeToggle" class="fas fa-moon"></i>
+      <button id="editBtn">Edit</button>
     </nav>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="Profile Picture" />
-    <h2>Hi, I'm Sravya 👋</h2>
+    <img id="profilePic" src="https://avatars.githubusercontent.com/u/9919?v=4" alt="Profile Picture" />
+    <h2 id="heroName">Hi, I'm Sravya 👋</h2>
     <div class="typing-text">Frontend Developer | Java Enthusiast | Problem Solver</div>
-    <div class="bubbles">
-      <span style="left: 10%; width: 40px; height: 40px;"></span>
-      <span style="left: 30%; width: 20px; height: 20px;"></span>
-      <span style="left: 50%; width: 60px; height: 60px;"></span>
-      <span style="left: 70%; width: 25px; height: 25px;"></span>
-      <span style="left: 90%; width: 35px; height: 35px;"></span>
-    </div>
   </section>
 
   <!-- About -->
-  <section id="about">
+  <section id="about" data-animate>
     <h2>About Me</h2>
-    <p>
-      I'm a passionate software developer with a focus on creating modern, responsive, and visually appealing web applications.
-      I enjoy solving problems and continuously improving my skills.
+    <p id="aboutText">
+      I'm a passionate software developer focused on creating modern, responsive, and visually appealing web apps.
     </p>
   </section>
 
   <!-- Skills -->
-  <section id="skills">
+  <section id="skills" data-animate>
     <h2>Skills</h2>
-    <div class="skills">
+    <div class="cards" id="skillsList">
       <div class="card">HTML</div>
       <div class="card">CSS</div>
       <div class="card">JavaScript</div>
@@ -249,28 +299,62 @@
   </section>
 
   <!-- Projects -->
-  <section id="projects">
+  <section id="projects" data-animate>
     <h2>Projects</h2>
-    <div class="projects">
+    <div class="cards" id="projectsList">
       <div class="card">Portfolio Website</div>
       <div class="card">Car Rental Management</div>
       <div class="card">Loan Application System</div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <p>
-      📧 Email: <a href="mailto:your_github_email@example.com">your_github_email@example.com</a><br />
-      🐱 GitHub: <a href="https://github.com/srav-742" target="_blank">github.com/srav-742</a><br />
-      🧩 LeetCode: <a href="https://leetcode.com/" target="_blank">leetcode.com/your-profile</a>
-    </p>
+  <!-- Social Profiles -->
+  <section id="contact" data-animate>
+    <h2>Connect With Me</h2>
+    <a href="https://github.com/srav-742" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    <a href="https://leetcode.com/" target="_blank"><i class="fas fa-code"></i> LeetCode</a>
   </section>
 
   <!-- Footer -->
   <footer>
     <p>© 2025 Sravya | All Rights Reserved</p>
   </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Dark / Light Mode Toggle
+    const themeToggle = document.getElementById("themeToggle");
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      themeToggle.classList.toggle("fa-sun");
+      themeToggle.classList.toggle("fa-moon");
+    });
+
+    // Scroll Animations
+    const elements = document.querySelectorAll("[data-animate]");
+    window.addEventListener("scroll", () => {
+      elements.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+          el.classList.add("active");
+        }
+      });
+    });
+
+    // Edit Mode
+    document.getElementById("editBtn").addEventListener("click", () => {
+      const newName = prompt("Enter your name:", document.getElementById("userName").innerText);
+      if (newName) {
+        document.getElementById("userName").innerText = newName;
+        document.getElementById("heroName").innerText = "Hi, I'm " + newName + " 👋";
+      }
+
+      const newAbout = prompt("Update your About section:", document.getElementById("aboutText").innerText);
+      if (newAbout) document.getElementById("aboutText").innerText = newAbout;
+
+      const newPic = prompt("Enter Profile Picture URL:", document.getElementById("profilePic").src);
+      if (newPic) document.getElementById("profilePic").src = newPic;
+    });
+  </script>
 </body>
 </html>
